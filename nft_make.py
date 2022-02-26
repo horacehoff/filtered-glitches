@@ -24,7 +24,7 @@ def nft(file):
         i = 0
         im2 = im1
         while i < index:
-            im2 = im1.filter(ImageFilter.SHARPEN)
+            im2 = im2.filter(ImageFilter.SHARPEN)
             i = i+1
         im1.save("Images/outimg"+str(x)+str(random.randint(1, 1000))+".png")
         im2.save("Images/outimg"+str(x+55)+str(random.randint(1, 1000))+".png")
