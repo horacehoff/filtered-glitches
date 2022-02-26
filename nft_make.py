@@ -1,9 +1,8 @@
 from PIL import ImageEnhance, Image, ImageFilter
 from os import listdir
-import os
+import os, getopt, sys
 from os.path import isfile, join
-onlyfiles = [f for f in listdir(os.getcwd()) if isfile(join(os.getcwd(), f))]
-for file in onlyfiles:
+def nft(file):
     i = [1, 2]
     for x in i:
         enhancer = ImageEnhance.Sharpness(Image.open(file))
@@ -21,12 +20,20 @@ for file in onlyfiles:
         while i < index:
             im1 = im1.filter(ImageFilter.BLUR)
             i = i+1
-        if (bool(random.getrandbits(1)) == True):
-            index = random.randint(5,5000)
-            i = 0
-            im2 = im1
-            while i < index:
-                im2 = im1.filter(ImageFilter.SHARPEN)
-                i = i+1
-        im1.save("Out/outimg"+str(x)+str(random.randint(1, 1000))+".png")
-        im2.save("Out/outimg"+str(x+55)+str(random.randint(1, 1000))+".png")
+        index = random.randint(5,5000)
+        i = 0
+        im2 = im1
+        while i < index:
+            im2 = im1.filter(ImageFilter.SHARPEN)
+            i = i+1
+        im1.save("Images/outimg"+str(x)+str(random.randint(1, 1000))+".png")
+        im2.save("Images/outimg"+str(x+55)+str(random.randint(1, 1000))+".png")
+        
+argumentList = sys.argv[1:]
+options = "i:cd"
+long_options = ["CheckInstall", "InputFile =", "Debug"]
+arguments, values = getopt.getopt(argumentList, options, long_options)
+if arguments:
+    for currentArgument, currentValue in arguments:
+        if currentArgument in ("-i", "--InputFile"):
+            nft(currentValue)
